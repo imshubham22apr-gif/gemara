@@ -181,10 +181,14 @@ func TestSchemaValidation(t *testing.T) {
 		// ThreatCatalog — negative
 		{"threat with invalid group", "./test-data/bad-threat-invalid-group.yaml", "#ThreatCatalog", true, `_groupValidation."0": invalid value ["stride-s"]`},
 		{"threat catalog with duplicate threat id", "./test-data/bad-threat-duplicate-id.yaml", "#ThreatCatalog", true, `_uniqueThreatIds."THR-001"`},
+		{"threat missing description", "./test-data/bad-threat-missing-description.yaml", "#ThreatCatalog", true, "threats.0.description: incomplete value string"},
+		{"threat with empty capabilities list", "./test-data/bad-threat-empty-capabilities.yaml", "#ThreatCatalog", true, "threats.0.capabilities: incompatible list lengths"},
 
 		// VectorCatalog — negative
 		{"vector with invalid group", "./test-data/bad-vector-invalid-group.yaml", "#VectorCatalog", true, `_groupValidation."0": invalid value ["prompt-injection"]`},
 		{"vector catalog with duplicate vector id", "./test-data/bad-vector-duplicate-id.yaml", "#VectorCatalog", true, `_uniqueVectorIds."VEC-001"`},
+		{"vector missing id", "./test-data/bad-vector-missing-id.yaml", "#VectorCatalog", true, "vectors.0.id: incomplete value string"},
+		{"vector catalog with empty vectors list", "./test-data/bad-vector-empty-list.yaml", "#VectorCatalog", true, "vectors: incompatible list lengths"},
 
 		// PrincipleCatalog — negative
 		{"principle with invalid group", "./test-data/bad-principle-invalid-group.yaml", "#PrincipleCatalog", true, `_groupValidation."0": invalid value ["data-protection"]`},
